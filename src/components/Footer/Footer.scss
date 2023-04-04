@@ -1,0 +1,11 @@
+.footer {
+    background-color: lavender;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    &__contact--link {
+        color: black;
+    }
+}

@@ -1,20 +1,62 @@
 import './Login.scss';
 
+//tools
+import axios from "axios";
+import { useState } from "react";
+import { API_URL } from '../../utils/utils';
+
 const Login = ({ setIsUserLoggedIn }) => {
+    const [errorLogin, setErrorLogin] = useState();
+
+    // const [emailError, setEmailError] = useState('');
+    // const [passwordError, setPasswordError] = useState('');
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+
+        // axios POST request: /login
+        console.log(API_URL)
+        axios
+            .post(`${API_URL}/login`,
+                {
+                    email,
+                    password,
+                })
+            .then((res) => {
+                // get token from response
+                const { token } = res.data;
+
+                //store token in session storage
+                sessionStorage.setItem('token', token);
+
+                //change state to true to navigate to profile
+                setIsUserLoggedIn(true);
+            })
+            .catch((error) => {
+                console.error("Error:" + error);
+                setErrorLogin("Unsuccessful Login");
+              });
+    }
 
     return (
         <main className='login'>
-            <form className='login-form'            >
+            <form className='login-form'
+            onSubmit={handleSubmit}
+            >
                 <label className='login-form__label'>
                     Email:
                 </label>
-                <input type='text' name='username' className='login-form__input login-form__input--email' />
+                <input type='email' name='email' className='login-form__input login-form__input--email' />
 
                 <label className='login-form__label'>
                     Password:
                 </label>
                 <input type='password' name='password' className='login-form__input login-form__input--password' />
 
+                {errorLogin && <div className='login-form__message'>{errorLogin}</div>}
 
                 <button className='login-form__button'>Log In</button>
             </form>

@@ -19,8 +19,8 @@ function App() {
       <Routes>
         {
           isUserLoggedIn
-            ? (<Route path='/' element={<Login setIsUserLoggedIn={setIsUserLoggedIn} />} />)
-            : (<Route path='/profile/:id' element={<Profile setIsUserLoggedIn={setIsUserLoggedIn} />} />)
+            ? (<Route path='/' element={<Profile setIsUserLoggedIn={setIsUserLoggedIn} />} />)
+            : (<Route path='/' element={<Login setIsUserLoggedIn={setIsUserLoggedIn} />} />)
         }
         {/* <Route path='/*' element={<NotFoundPage/>}/> */}
       </Routes>

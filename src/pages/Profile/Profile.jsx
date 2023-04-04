@@ -1,12 +1,14 @@
 import './Profile.scss';
 
+//components
+import Header from '../../components/Header/Header';
 const Profile = () => {
     
    
     return (
-        <div>
-            profile
-        </div>
+        <>
+          <Header/>
+        </>
     );
 };
 

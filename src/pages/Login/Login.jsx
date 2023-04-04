@@ -18,7 +18,6 @@ const Login = ({ setIsUserLoggedIn }) => {
         const password = event.target.password.value;
 
         // axios POST request: /login
-        console.log(API_URL)
         axios
             .post(`${API_URL}/login`,
                 {

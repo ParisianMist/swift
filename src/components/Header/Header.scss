@@ -1,0 +1,18 @@
+.header {
+    background-color: lavender;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 2rem;
+
+
+    &__container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    &__logout{
+       height: 1.75rem;
+    }
+}

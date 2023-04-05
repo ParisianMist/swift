@@ -3,7 +3,7 @@ import './Header.scss';
 //icon
 import logoutIcon from '../../assets/icons/logout_icon.svg';
 
-const Header = () => {
+const Header = ({name}) => {
     return (
         <header className='header'>
             {/* logo */}
@@ -12,7 +12,7 @@ const Header = () => {
             {/* logout and name */}
             <div className="header__container">
                 <p className="header__person">
-                    Minerva McGonagal
+                    {name}
                 </p>
                 <img src={logoutIcon} alt="logout icon" className="header__logout" />
             </div>

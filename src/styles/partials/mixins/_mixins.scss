@@ -1,0 +1,7 @@
+/* global font handler */
+@mixin handleFont ($size, $lh, $weight) {
+    font-size: $size;
+    line-height: $lh;
+    font-weight: $weight;
+  }
+  

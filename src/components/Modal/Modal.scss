@@ -1,0 +1,40 @@
+@use "../../styles/partials/mixins/mixins" as *;
+
+.modal {
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: fixed;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 999;
+        background-color: cyan;
+        padding:1.5rem;
+    }
+
+    &__title {
+        @include handleFont(1.75rem, 2.25rem, 600);
+    }
+
+    &__text {
+        @include handleFont(.9375rem, 1.625rem, 400)
+    }
+
+    &__text-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    &__button-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+
+
+    }
+}

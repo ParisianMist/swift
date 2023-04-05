@@ -1,0 +1,19 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    font-family: "TitilliumWeb";
+    margin: 0;
+}
+@import 'react-big-calendar/lib/sass/styles';
+
+.profile {
+   padding-top: 2rem;
+    padding-bottom: 1rem;
+    padding-inline: 1rem;
+
+    &__title {
+        padding-bottom: 1.5rem;
+        padding-left: 1rem;
+    }
+}

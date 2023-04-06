@@ -14,22 +14,16 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import Modal from '../../components/Modal/Modal'
 
-
+//to render datetime with Calendar
 const localizer = momentLocalizer(moment);
 
 
-
-//shift pop-up
-const handleClickEvent = (event) => {
-  console.log('Event clicked:', event);
-};
-
 const Profile = ({ setIsUserLoggedIn }) => {
 
-  const [shift, setShift] = useState()
+  const [shift, setShift] = useState([])
   const [employeeName, setEmployeeName] = useState()
   const [selectedEvent, setSelectedEvent] = useState(null);
-
+  const [upForGrabs, setUpForGrabs] = useState([])
   // load employee's profile
   const token = sessionStorage.getItem("token");
 
@@ -44,7 +38,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
     logOut();
   }
 
-  // get all 0 for this employee
+  // get all shifts for this employee
   useEffect(() => {
     axios
       .get(`${API_URL}/employee/schedule`,
@@ -55,7 +49,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
         })
       .then((res) => {
         const data = res.data
-       console.log(data)
+        console.log(data)
         setShift(data);
         setEmployeeName(data[0].employeeName)
       })
@@ -64,9 +58,30 @@ const Profile = ({ setIsUserLoggedIn }) => {
       })
   }, [token]);
 
+  // Get available shifts for swapping
+  useEffect(() => {
+    axios.get(`${API_URL}/shift/swap`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        const modifiedData = data.map(event => ({
+          ...event,
+          title: "up for grabs: " + event.title
+        }));
+        setUpForGrabs(modifiedData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [token]);
+
   return (
     <main>
-      
+
       <Header
         name={employeeName}
       />
@@ -75,7 +90,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
         <h1 className="profile__title">
           Your Schedule
         </h1>
-        
+
         {/* display modal when shift is clicked */}
         {selectedEvent && (
           <Modal
@@ -83,16 +98,16 @@ const Profile = ({ setIsUserLoggedIn }) => {
             onClose={() => setSelectedEvent(null)}
           />)
         }
-        
+
         <Calendar
           localizer={localizer}
           defaultDate={'2023-04-02'}
           defaultView="month"
-          events={shift}
+          events={[...shift, ...upForGrabs]}
           style={{ height: "85vh" }}
           onSelectEvent={(event) => setSelectedEvent(event)}
         />
-     
+
       </section>
       <Footer />
     </main>

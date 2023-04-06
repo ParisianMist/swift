@@ -44,7 +44,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
     logOut();
   }
 
-  // get all shift for this employee
+  // get all 0 for this employee
   useEffect(() => {
     axios
       .get(`${API_URL}/employee/schedule`,
@@ -55,6 +55,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
         })
       .then((res) => {
         const data = res.data
+       console.log(data)
         setShift(data);
         setEmployeeName(data[0].employeeName)
       })

@@ -1,18 +1,17 @@
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    font-family: "TitilliumWeb";
-    margin: 0;
-}
-@import 'react-big-calendar/lib/sass/styles';
+// @import 'react-big-calendar/lib/sass/styles';
+
+@use "../../styles/partials/fonts" as *;
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/mixins/mixins" as *;
 
 .profile {
-   padding-top: 2rem;
+    padding-top: 2rem;
     padding-bottom: 1rem;
     padding-inline: 1rem;
 
     &__title {
+        @include handleFont(6rem, 2.25rem, 300);
+        color: $navy;
         padding-bottom: 1.5rem;
         padding-left: 1rem;
     }

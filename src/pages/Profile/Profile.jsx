@@ -12,7 +12,8 @@ import { API_URL } from '../../utils/utils';
 //components
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import Modal from '../../components/Modal/Modal'
+import ModalPostShift from '../../components/ModalPostShift/ModalPostShift'
+import ModalAcceptShift from '../../components/ModalAcceptShift/ModalAcceptShift';
 
 //to render datetime with Calendar
 const localizer = momentLocalizer(moment);
@@ -24,16 +25,14 @@ const Profile = ({ setIsUserLoggedIn }) => {
   const [employeeName, setEmployeeName] = useState()
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [upForGrabs, setUpForGrabs] = useState([])
-  // load employee's profile
-  const token = sessionStorage.getItem("token");
+  const [employeeID, setEmployeeID] = useState()
 
-  //log out and return to login
+  // Check if user is logged in, log out and return to login page if not
+  const token = sessionStorage.getItem("token");
   const logOut = () => {
     sessionStorage.removeItem("token");
     setIsUserLoggedIn(false);
   };
-
-  //if no token log out and return to login
   if (!token) {
     logOut();
   }
@@ -52,6 +51,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
         console.log(data)
         setShift(data);
         setEmployeeName(data[0].employeeName)
+        setEmployeeID(data[0].employeeID)
       })
       .catch((error) => {
         console.log(error)
@@ -79,6 +79,25 @@ const Profile = ({ setIsUserLoggedIn }) => {
       });
   }, [token]);
 
+  // decide which modal to render
+  const renderModal = (event) => {
+    if (event.employeeID === employeeID) {
+      return (
+        <ModalPostShift
+          shift={event}
+          onClose={() => setSelectedEvent(null)}
+        />
+      );
+    } else {
+      return (
+        <ModalAcceptShift
+          shift={event}
+          onClose={() => setSelectedEvent(null)}
+        />
+      );
+    }
+  };
+
   return (
     <main>
 
@@ -92,12 +111,14 @@ const Profile = ({ setIsUserLoggedIn }) => {
         </h1>
 
         {/* display modal when shift is clicked */}
-        {selectedEvent && (
-          <Modal
+        {selectedEvent && renderModal(selectedEvent)}
+{/* display modal when shift is clicked */}
+{/* {selectedEvent && (
+          <ModalPostShift
             shift={selectedEvent}
             onClose={() => setSelectedEvent(null)}
           />)
-        }
+        } */}
 
         <Calendar
           localizer={localizer}

@@ -1,4 +1,4 @@
-import './Modal.scss';
+import './ModalPostShift.scss';
 
 //tools
 import moment from 'moment'
@@ -13,10 +13,9 @@ import { API_URL } from '../../utils/utils';
 
 const Modal = ({ shift, onClose }) => {
     const [message, setMessage] = useState('')
-    console.log(shift.upForGrabs)
     const { title, start, end, shiftID, upForGrabs } = shift;
 
-    //update status of 
+    //update upForGrabs status
     const postShift = () => {
         axios
             .patch(`${API_URL}/shift/${shiftID}`, { up_for_grabs: true })

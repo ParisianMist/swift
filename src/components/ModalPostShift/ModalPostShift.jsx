@@ -11,7 +11,7 @@ import { API_URL } from '../../utils/utils';
 
 
 
-const Modal = ({ shift, onClose }) => {
+const Modal = ({ shift, onClose,shiftActioned, setShiftActioned }) => {
     const [message, setMessage] = useState('')
     const { title, start, end, shiftID, upForGrabs } = shift;
 
@@ -21,6 +21,7 @@ const Modal = ({ shift, onClose }) => {
             .patch(`${API_URL}/shift/${shiftID}`, { up_for_grabs: true })
             .then(response => {
                 console.log('shift posted', response);
+                setShiftActioned(true);
                 setTimeout(() => { onClose(); }, 2000);
             })
             .catch(err => {
@@ -31,7 +32,8 @@ const Modal = ({ shift, onClose }) => {
         axios
             .patch(`${API_URL}/shift/${shiftID}`, { up_for_grabs: false })
             .then(response => {
-                console.log('shift removed', response)
+                console.log('shift removed', response);
+                setShiftActioned(true);
                 setMessage('Shift removed');
             })
             .catch(err => {
@@ -49,7 +51,14 @@ const Modal = ({ shift, onClose }) => {
     return (
         <div className="modal">
             <article className="modal__container">
-                <div className="modal__text-container">
+            {shiftActioned && (
+                    <div className="modal__container--overlay">
+                        <h2 className="modal__title">
+                            Success!
+                        </h2>
+                    </div>
+                )}
+                 <div className="modal__text-container">
                     <h1 className="modal__title">
                         {title}
                     </h1>

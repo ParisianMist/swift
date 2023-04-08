@@ -27,6 +27,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
   const [upForGrabs, setUpForGrabs] = useState([])
   const [employeeID, setEmployeeID] = useState()
   const [swapStatus, setSwapStatus] = useState(false);
+  const [shiftActioned, setShiftActioned] = useState(false);
 
   // Check if user is logged in, log out and return to login page if not
   const token = sessionStorage.getItem("token");
@@ -55,7 +56,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
           end: moment(shift.end).toDate(),
         }));
         dataRef.current = data;
-        if (swapStatus === false||dataRef.current.swapStatus===false) {
+        if (swapStatus === false || dataRef.current.swapStatus === false) {
           setShift(dataRef.current);
           setEmployeeName(dataRef.current[0].employeeName);
           setEmployeeID(dataRef.current[0].employeeID);
@@ -64,12 +65,12 @@ const Profile = ({ setIsUserLoggedIn }) => {
       .catch((error) => {
         console.log(error)
       })
-  }, [token, swapStatus, upForGrabs]);
+  }, [token, swapStatus, upForGrabs, shiftActioned]);
 
   useEffect(() => {
     // Check if shifts have been taken and remove them from the user's schedule
     if (shift.length > 0) {
-      const takenShifts = shift.filter((shift) => shift.swapStatus=== true);
+      const takenShifts = shift.filter((shift) => shift.swapStatus === true);
       if (takenShifts.length > 0) {
         const updatedShifts = shift.filter((shift) => shift.swapStatus === false);
         setShift(updatedShifts);
@@ -100,7 +101,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [token, upForGrabs]);
+  }, [token, upForGrabs,shiftActioned]);
 
 
   // decide which modal to render
@@ -110,6 +111,8 @@ const Profile = ({ setIsUserLoggedIn }) => {
       return (
         <ModalPostShift
           shift={event}
+          shiftActioned={shiftActioned}
+          setShiftActioned={setShiftActioned}
           onClose={() => setSelectedEvent(null)}
         />
       );
@@ -118,6 +121,8 @@ const Profile = ({ setIsUserLoggedIn }) => {
         <ModalAcceptShift
           shift={event}
           newEmployeeID={employeeID}
+          shiftActioned={shiftActioned}
+          setShiftActioned={setShiftActioned}
           onClose={() => setSelectedEvent(null)}
         />
       );

@@ -9,26 +9,29 @@ import axios from "axios";
 //API_URL
 import { API_URL } from '../../utils/utils';
 
-const ModalAcceptShift = ({ shift, onClose, newEmployeeID }) => {
+const ModalAcceptShift = ({ shift, onClose, newEmployeeID, shiftActioned, setShiftActioned }) => {
 
     const [message, setMessage] = useState('')
     const { title, start, end, shiftID } = shift;
-    const [accepted, setAccepted] = useState(false);
+
+    useEffect(() => {
+        let timer;
+        if (shiftActioned) {
+            timer = setTimeout(() => { onClose(); }, 2000);
+        }
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [shiftActioned, onClose]);
 
     //fix me
     //update original shift, upForGrabs=false and swapStatus=true
     const acceptShift = () => {
-        // const updateOriginalShift = {
-        //     up_for_grabs: false,
-        //     swap_status: true,
-        //   };
-
         axios
             .patch(`${API_URL}/shift/${shiftID}/accept`, { employee_id: newEmployeeID })
             .then(response => {
                 console.log('shift accepted', response);
-                setTimeout(() => { onClose(); }, 2000);
-                setAccepted(true)
+                setShiftActioned(true)
             })
             .catch(error => {
                 console.error(error);
@@ -39,11 +42,13 @@ const ModalAcceptShift = ({ shift, onClose, newEmployeeID }) => {
     return (
         <div className="modal">
             <article className="modal__container">
-                <div className="modal__container--overlay">
-                    <h2 className="modal__title">
-                        Accepted!
-                    </h2>
-                </div>
+                {shiftActioned && (
+                    <div className="modal__container--overlay">
+                        <h2 className="modal__title">
+                            Accepted!
+                        </h2>
+                    </div>
+                )}
                 <div className="modal__text-container">
                     <h1 className="modal__title">
                         {title}

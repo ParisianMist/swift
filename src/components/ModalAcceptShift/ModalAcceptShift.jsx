@@ -24,7 +24,7 @@ const ModalAcceptShift = ({ shift, onClose, newEmployeeID }) => {
         //   };
 
         axios
-            .patch(`${API_URL}/shift/${shiftID}/accept`, { employee_id: newEmployeeID})
+            .patch(`${API_URL}/shift/${shiftID}/accept`, { employee_id: newEmployeeID })
             .then(response => {
                 console.log('shift accepted', response);
                 setTimeout(() => { onClose(); }, 2000);
@@ -39,16 +39,15 @@ const ModalAcceptShift = ({ shift, onClose, newEmployeeID }) => {
     return (
         <div className="modal">
             <article className="modal__container">
+                <div className="modal__container--overlay">
+                    <h2 className="modal__title">
+                        Accepted!
+                    </h2>
+                </div>
                 <div className="modal__text-container">
-                    <h1 className="modal__title">{title}</h1>
-
-                    if(accepted) {
-                        <div className="modal__message-container">
-                            <p className="modal__message--accepted">
-                                Shift Accepted
-                            </p>
-                        </div>
-                    }
+                    <h1 className="modal__title">
+                        {title}
+                    </h1>
 
                     <p className="modal__text">
                         start: {moment(start).format('MMM DD, YYYY HH:mm')}

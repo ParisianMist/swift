@@ -1,4 +1,6 @@
 @use "../../styles/partials/mixins/mixins" as *;
+@use "../../styles/partials/colors" as *;
+
 
 .modal {
 
@@ -10,9 +12,27 @@
         top: 60%;
         left: 50%;
         transform: translate(-50%, -50%);
-        z-index: 999;
+        z-index: 10;
         background-color: #00575d;
-        padding:1.5rem;
+        padding: 1.5rem;
+
+
+        &--overlay {
+            position: fixed;
+            width: 90%;
+            height: 90%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 11;
+            background-color: $salmon;
+            color: $white;
+            opacity: .9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+           
+          }
     }
 
     &__title {

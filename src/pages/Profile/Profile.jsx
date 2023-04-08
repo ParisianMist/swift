@@ -118,6 +118,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
 
       <Header
         name={employeeName}
+        logout={logOut}
       />
 
       <section className="profile">

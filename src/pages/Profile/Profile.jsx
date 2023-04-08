@@ -28,6 +28,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
   const [employeeID, setEmployeeID] = useState()
   const [swapStatus, setSwapStatus] = useState(false);
   const [shiftActioned, setShiftActioned] = useState(false);
+  // const [swapNotification,setSwapNotification]=useState()
 
   // Check if user is logged in, log out and return to login page if not
   const token = sessionStorage.getItem("token");
@@ -54,6 +55,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
           ...shift,
           start: moment(shift.start).toDate(),
           end: moment(shift.end).toDate(),
+          type: 'regular'
         }));
         dataRef.current = data;
         if (swapStatus === false || dataRef.current.swapStatus === false) {
@@ -61,14 +63,17 @@ const Profile = ({ setIsUserLoggedIn }) => {
           setEmployeeName(dataRef.current[0].employeeName);
           setEmployeeID(dataRef.current[0].employeeID);
         }
+        // if (swapStatus===true){
+        //   setSwapNotification(dataRef.current)
+        // }
       })
       .catch((error) => {
         console.log(error)
       })
   }, [token, swapStatus, upForGrabs, shiftActioned]);
 
+  // Check if shifts have been taken and remove them from the user's schedule
   useEffect(() => {
-    // Check if shifts have been taken and remove them from the user's schedule
     if (shift.length > 0) {
       const takenShifts = shift.filter((shift) => shift.swapStatus === true);
       if (takenShifts.length > 0) {
@@ -76,7 +81,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
         setShift(updatedShifts);
       }
     }
-  }, [shift]);
+  }, [shift,shiftActioned]);
 
   // Get available shifts for swapping
   useEffect(() => {
@@ -93,7 +98,8 @@ const Profile = ({ setIsUserLoggedIn }) => {
         }
         const modifiedData = data.map(event => ({
           ...event,
-          title: "up for grabs: " + event.title
+          title: "up for grabs: " + event.title,
+          type: 'available'
         }));
         setUpForGrabs(modifiedData);
         setSwapStatus(true);
@@ -103,6 +109,22 @@ const Profile = ({ setIsUserLoggedIn }) => {
       });
   }, [token, upForGrabs,shiftActioned]);
 
+  //add style to different events
+  const eventStyleGetter = (event, start, end, isSelected) => {
+    let style = {
+      backgroundColor: event.type === 'available' ? '#00575d' : 'black',
+      borderRadius: '5px',
+      opacity: 0.8,
+      color: 'white',
+      border: '0px',
+      display: 'block',
+      paddingLeft: '2px'
+    };
+  
+    return {
+      style: style
+    };
+  };
 
   // decide which modal to render
   const renderModal = (event) => {
@@ -152,6 +174,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
           events={[...shift.filter(s => !s.swapStatus), ...upForGrabs]}
           style={{ height: "85vh" }}
           onSelectEvent={(event) => setSelectedEvent(event)}
+          eventPropGetter={eventStyleGetter}
         />
 
       </section>

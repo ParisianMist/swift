@@ -2,7 +2,7 @@ import './ModalAcceptShift.scss';
 
 //tools
 import moment from 'moment'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import axios from "axios";
 
 
@@ -11,7 +11,6 @@ import { API_URL } from '../../utils/utils';
 
 const ModalAcceptShift = ({ shift, onClose, newEmployeeID, shiftActioned, setShiftActioned }) => {
 
-    const [message, setMessage] = useState('')
     const { title, start, end, shiftID } = shift;
 
     useEffect(() => {

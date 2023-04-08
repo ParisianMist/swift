@@ -6,7 +6,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import { API_URL } from '../../utils/utils';
 
 //components
@@ -26,7 +26,6 @@ const Profile = ({ setIsUserLoggedIn }) => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [upForGrabs, setUpForGrabs] = useState([])
   const [employeeID, setEmployeeID] = useState()
-
   // Check if user is logged in, log out and return to login page if not
   const token = sessionStorage.getItem("token");
   const logOut = () => {
@@ -38,6 +37,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
   }
 
   // get all shifts for this employee
+  const dataRef = useRef(null); //reference to data so it can be used in dependency
   useEffect(() => {
     axios
       .get(`${API_URL}/employee/schedule`,
@@ -48,7 +48,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
         })
       .then((res) => {
         const data = res.data
-        console.log(data)
+        dataRef.current = data;
         setShift(data);
         setEmployeeName(data[0].employeeName)
         setEmployeeID(data[0].employeeID)
@@ -56,7 +56,8 @@ const Profile = ({ setIsUserLoggedIn }) => {
       .catch((error) => {
         console.log(error)
       })
-  }, [token]);
+  }, [token, dataRef.current]);
+  
 
   // Get available shifts for swapping
   useEffect(() => {
@@ -67,7 +68,10 @@ const Profile = ({ setIsUserLoggedIn }) => {
     })
       .then((res) => {
         const data = res.data;
-        console.log(data);
+        if (data.length === 0) {
+          console.log("No available shifts for swapping");
+          return;
+        }
         const modifiedData = data.map(event => ({
           ...event,
           title: "up for grabs: " + event.title
@@ -78,6 +82,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
         console.log(error);
       });
   }, [token]);
+  
 
   // decide which modal to render
   const renderModal = (event) => {
@@ -92,6 +97,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
       return (
         <ModalAcceptShift
           shift={event}
+          newEmployeeID={employeeID}
           onClose={() => setSelectedEvent(null)}
         />
       );
@@ -112,8 +118,8 @@ const Profile = ({ setIsUserLoggedIn }) => {
 
         {/* display modal when shift is clicked */}
         {selectedEvent && renderModal(selectedEvent)}
-{/* display modal when shift is clicked */}
-{/* {selectedEvent && (
+        {/* display modal when shift is clicked */}
+        {/* {selectedEvent && (
           <ModalPostShift
             shift={selectedEvent}
             onClose={() => setSelectedEvent(null)}

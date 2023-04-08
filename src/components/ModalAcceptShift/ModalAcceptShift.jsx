@@ -9,15 +9,30 @@ import axios from "axios";
 //API_URL
 import { API_URL } from '../../utils/utils';
 
-const ModalAcceptShift = ({ shift, onClose }) => {
+const ModalAcceptShift = ({ shift, onClose, newEmployeeID }) => {
 
     const [message, setMessage] = useState('')
-    const { title, start, end, shiftID, upForGrabs } = shift;
-    const [accepted, setAccepted] = useState(shift.accepted);
+    const { title, start, end, shiftID } = shift;
+    const [accepted, setAccepted] = useState(false);
 
-    //update upForGrabs and swapStatus
-    const acceptShift=()=>{
-        
+    //fix me
+    //update original shift, upForGrabs=false and swapStatus=true
+    const acceptShift = () => {
+        // const updateOriginalShift = {
+        //     up_for_grabs: false,
+        //     swap_status: true,
+        //   };
+
+        axios
+            .patch(`${API_URL}/shift/${shiftID}/accept`, { employee_id: newEmployeeID})
+            .then(response => {
+                console.log('shift accepted', response);
+                setTimeout(() => { onClose(); }, 2000);
+                setAccepted(true)
+            })
+            .catch(error => {
+                console.error(error);
+            });
     };
 
 
@@ -27,37 +42,13 @@ const ModalAcceptShift = ({ shift, onClose }) => {
                 <div className="modal__text-container">
                     <h1 className="modal__title">{title}</h1>
 
-                    {accepted ? (
+                    if(accepted) {
                         <div className="modal__message-container">
-                            <p className="modal__message--accepted">Shift Accepted</p>
-                            
+                            <p className="modal__message--accepted">
+                                Shift Accepted
+                            </p>
                         </div>
-                    ) : (
-                        <div className="modal__message-container">
-                            {shift.upForGrabs ? (
-                                <>
-                                    {/* <p className="modal__message--posted">Shift Posted</p>
-                                    <button
-                                        type="button"
-                                        className="button button--unpost-shift"
-                                        onClick={() => {
-                                            // removeShift();
-                                        }}
-                                    >
-                                        Unpost Shift
-                                    </button> */}
-                                </>
-                            ) : (
-                                <button
-                                    type="button"
-                                    className="button button--accept-shift"
-                                    // onClick={acceptShift}
-                                >
-                                    Accept Shift
-                                </button>
-                            )}
-                        </div>
-                    )}
+                    }
 
                     <p className="modal__text">
                         start: {moment(start).format('MMM DD, YYYY HH:mm')}
@@ -71,10 +62,7 @@ const ModalAcceptShift = ({ shift, onClose }) => {
                         Exit
                     </button>
                     <button type="button" className="button button--post-shift"
-                        onClick={() => {
-                            // postShift()
-                        }}
-                    >
+                        onClick={() => { acceptShift() }} >
                         Take Shift
                     </button>
 

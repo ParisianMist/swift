@@ -46,13 +46,17 @@ const Profile = ({ setIsUserLoggedIn }) => {
             Authorization: `Bearer ${token}`,
           },
         })
-      .then((res) => {
-        const data = res.data
-        dataRef.current = data;
-        setShift(data);
-        setEmployeeName(data[0].employeeName)
-        setEmployeeID(data[0].employeeID)
-      })
+        .then((res) => {
+          const data = res.data.map((shift) => ({
+            ...shift,
+            start: moment(shift.start).toDate(),
+            end: moment(shift.end).toDate(),
+          }));
+          dataRef.current = data;
+          setShift(data);
+          setEmployeeName(data[0].employeeName);
+          setEmployeeID(data[0].employeeID);
+        })
       .catch((error) => {
         console.log(error)
       })
@@ -118,13 +122,6 @@ const Profile = ({ setIsUserLoggedIn }) => {
 
         {/* display modal when shift is clicked */}
         {selectedEvent && renderModal(selectedEvent)}
-        {/* display modal when shift is clicked */}
-        {/* {selectedEvent && (
-          <ModalPostShift
-            shift={selectedEvent}
-            onClose={() => setSelectedEvent(null)}
-          />)
-        } */}
 
         <Calendar
           localizer={localizer}

@@ -55,17 +55,27 @@ const Profile = ({ setIsUserLoggedIn }) => {
           end: moment(shift.end).toDate(),
         }));
         dataRef.current = data;
-        if (swapStatus === false) {
-          setShift(data);
-          setEmployeeName(data[0].employeeName);
-          setEmployeeID(data[0].employeeID);
+        if (swapStatus === false||dataRef.current.swapStatus===false) {
+          setShift(dataRef.current);
+          setEmployeeName(dataRef.current[0].employeeName);
+          setEmployeeID(dataRef.current[0].employeeID);
         }
       })
       .catch((error) => {
         console.log(error)
       })
-  }, [token, swapStatus]);
+  }, [token, swapStatus, upForGrabs]);
 
+  useEffect(() => {
+    // Check if shifts have been taken and remove them from the user's schedule
+    if (shift.length > 0) {
+      const takenShifts = shift.filter((shift) => shift.swapStatus=== true);
+      if (takenShifts.length > 0) {
+        const updatedShifts = shift.filter((shift) => shift.swapStatus === false);
+        setShift(updatedShifts);
+      }
+    }
+  }, [shift]);
 
   // Get available shifts for swapping
   useEffect(() => {
@@ -90,11 +100,12 @@ const Profile = ({ setIsUserLoggedIn }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [token]);
+  }, [token, upForGrabs]);
 
 
   // decide which modal to render
   const renderModal = (event) => {
+    console.log(event)
     if (event.employeeID === employeeID) {
       return (
         <ModalPostShift
@@ -133,7 +144,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
           localizer={localizer}
           defaultDate={'2023-04-02'}
           defaultView="month"
-          events={[...shift, ...upForGrabs]}
+          events={[...shift.filter(s => !s.swapStatus), ...upForGrabs]}
           style={{ height: "85vh" }}
           onSelectEvent={(event) => setSelectedEvent(event)}
         />

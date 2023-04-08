@@ -6,7 +6,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import axios from "axios";
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { API_URL } from '../../utils/utils';
 
 //components
@@ -26,6 +26,8 @@ const Profile = ({ setIsUserLoggedIn }) => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [upForGrabs, setUpForGrabs] = useState([])
   const [employeeID, setEmployeeID] = useState()
+  const [swapStatus, setSwapStatus] = useState(false);
+
   // Check if user is logged in, log out and return to login page if not
   const token = sessionStorage.getItem("token");
   const logOut = () => {
@@ -46,22 +48,24 @@ const Profile = ({ setIsUserLoggedIn }) => {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then((res) => {
-          const data = res.data.map((shift) => ({
-            ...shift,
-            start: moment(shift.start).toDate(),
-            end: moment(shift.end).toDate(),
-          }));
-          dataRef.current = data;
+      .then((res) => {
+        const data = res.data.map((shift) => ({
+          ...shift,
+          start: moment(shift.start).toDate(),
+          end: moment(shift.end).toDate(),
+        }));
+        dataRef.current = data;
+        if (swapStatus === false) {
           setShift(data);
           setEmployeeName(data[0].employeeName);
           setEmployeeID(data[0].employeeID);
-        })
+        }
+      })
       .catch((error) => {
         console.log(error)
       })
-  }, [token, dataRef.current]);
-  
+  }, [token, swapStatus]);
+
 
   // Get available shifts for swapping
   useEffect(() => {
@@ -81,12 +85,13 @@ const Profile = ({ setIsUserLoggedIn }) => {
           title: "up for grabs: " + event.title
         }));
         setUpForGrabs(modifiedData);
+        setSwapStatus(true);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [token]);
-  
+
 
   // decide which modal to render
   const renderModal = (event) => {

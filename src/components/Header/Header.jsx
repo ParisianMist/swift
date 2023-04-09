@@ -2,12 +2,12 @@ import './Header.scss';
 
 //icon
 import logoutIcon from '../../assets/icons/logout_icon.svg';
-
+import logo from '../../assets/logo/swift_logo.png'
 const Header = ({ name, logout }) => {
     return (
         <header className='header'>
             {/* logo */}
-            <img src="" alt="swift logo" className="header__logo" />
+            <img src={logo} alt="swift logo" className="header__logo" />
 
             {/* logout and name */}
             <div className="header__container">

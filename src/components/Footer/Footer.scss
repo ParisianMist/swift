@@ -1,11 +1,15 @@
+@use "../../styles/partials/colors" as *;
+
 .footer {
-    background-color: lavender;
+    background-color: $teal;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
-
+&__text{
+    color: $white;
+}
     &__contact--link {
-        color: black;
+        color: $white;
     }
 }

@@ -15,6 +15,7 @@
         z-index: 10;
         background-color: #00575d;
         padding: 1.5rem;
+        border-radius: 4px;
 
 
         &--overlay {
@@ -25,36 +26,89 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 11;
-            background-color: $salmon;
+            background-color: $light-salmon;
             color: $white;
             opacity: .9;
             display: flex;
             justify-content: center;
             align-items: center;
-           
-          }
+
+        }
     }
 
     &__title {
         @include handleFont(1.75rem, 2.25rem, 600);
+        color: $white;
+        padding-bottom: 1rem;
+
+        &--available {
+            padding-top: .5rem;
+        }
     }
 
     &__text {
-        @include handleFont(.9375rem, 1.625rem, 400)
+        @include handleFont(.9375rem, 1.625rem, 400);
+        color: $white;
+
     }
 
     &__text-container {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        gap: 1rem;
+        padding-bottom: 1rem;
     }
 
     &__button-container {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
+        align-items: center;
         gap: 1rem;
 
 
+    }
+
+    &__icon {
+        width: 1rem;
+        align-self: right;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+
+    &__message {
+        &-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 1rem;
+        }
+
+        &--posted {
+            color: $salmon;
+            padding-bottom: .5rem;
+        }
+    }
+}
+
+.button {
+    border-radius: 1.25rem;
+    height: 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 1.25rem;
+    padding-inline: 1rem;
+
+    &:hover {
+        cursor: pointer;
     }
 }

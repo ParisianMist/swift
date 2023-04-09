@@ -81,7 +81,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
         setShift(updatedShifts);
       }
     }
-  }, [shift,shiftActioned]);
+  }, [shift, shiftActioned]);
 
   // Get available shifts for swapping
   useEffect(() => {
@@ -98,7 +98,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
         }
         const modifiedData = data.map(event => ({
           ...event,
-          title: "up for grabs: " + event.title,
+          title: "Available:\n" + event.title,
           type: 'available'
         }));
         setUpForGrabs(modifiedData);
@@ -107,20 +107,20 @@ const Profile = ({ setIsUserLoggedIn }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [token, upForGrabs,shiftActioned]);
+  }, [token, upForGrabs, shiftActioned]);
 
   //add style to different events
   const eventStyleGetter = (event, start, end, isSelected) => {
     let style = {
-      backgroundColor: event.type === 'available' ? '#00575d' : 'black',
+      backgroundColor: event.type === 'available' ? '#f2c6b1' : '#d9e3d8',
       borderRadius: '5px',
       opacity: 0.8,
-      color: 'white',
+      color: '#00575d',
       border: '0px',
       display: 'block',
       paddingLeft: '2px'
     };
-  
+
     return {
       style: style
     };
@@ -172,7 +172,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
           defaultDate={'2023-04-02'}
           defaultView="month"
           events={[...shift.filter(s => !s.swapStatus), ...upForGrabs]}
-          style={{ height: "85vh" }}
+          style={{ height: "76.75vh" }}
           onSelectEvent={(event) => setSelectedEvent(event)}
           eventPropGetter={eventStyleGetter}
         />

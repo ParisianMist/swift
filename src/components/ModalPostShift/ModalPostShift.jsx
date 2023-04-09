@@ -5,13 +5,13 @@ import moment from 'moment'
 import { useEffect, useState } from 'react';
 import axios from "axios";
 
-
 //API_URL
 import { API_URL } from '../../utils/utils';
 
+//icon
+import closeIcon from '../../assets/icons/close_icon.svg'
 
-
-const Modal = ({ shift, onClose,shiftActioned, setShiftActioned }) => {
+const Modal = ({ shift, onClose, shiftActioned, setShiftActioned }) => {
     const [message, setMessage] = useState('')
     const { title, start, end, shiftID, upForGrabs } = shift;
 
@@ -51,14 +51,17 @@ const Modal = ({ shift, onClose,shiftActioned, setShiftActioned }) => {
     return (
         <div className="modal">
             <article className="modal__container">
-            {shiftActioned && (
+                <div className="modal__icon-container">
+                    <img src={closeIcon} alt="close icon" className="modal__icon" onClick={onClose}/>
+                </div>
+                {shiftActioned && (
                     <div className="modal__container--overlay">
                         <h2 className="modal__title">
                             Success!
                         </h2>
                     </div>
                 )}
-                 <div className="modal__text-container">
+                <div className="modal__text-container">
                     <h1 className="modal__title">
                         {title}
                     </h1>
@@ -71,26 +74,20 @@ const Modal = ({ shift, onClose,shiftActioned, setShiftActioned }) => {
                             <button type="button" className="button button--post-shift"
                                 onClick={() => {
                                     removeShift()
-                                }}
-                            >
-                                unPost Shift
+                                }}>
+                                Unpost Shift
                             </button>
                         </div>
                     }
 
                     <p className="modal__text">
-                        start: {moment(start).format('MMM DD, YYYY HH:mm')}
+                        Start: {moment(start).format('MMM DD, YYYY HH:mm')}
                     </p>
                     <p className="modal__text">
-                        end: {moment(end).format('MMM DD, YYYY HH:mm')}
+                        End: {moment(end).format('MMM DD, YYYY HH:mm')}
                     </p>
                 </div>
                 <div className="modal__button-container">
-                    <button type="button" className="button button--cancel"
-                        onClick={onClose}
-                    >
-                        Exit
-                    </button>
                     <button type="button" className="button button--post-shift"
                         onClick={() => {
                             postShift()

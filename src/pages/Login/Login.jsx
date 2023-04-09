@@ -5,6 +5,8 @@ import axios from "axios";
 import { useState } from "react";
 import { API_URL } from '../../utils/utils';
 
+//logo
+import logo from '../../assets/logo/swift_logo.png'
 const Login = ({ setIsUserLoggedIn }) => {
     const [errorLogin, setErrorLogin] = useState();
 
@@ -45,6 +47,8 @@ const Login = ({ setIsUserLoggedIn }) => {
             <form className='login-form'
             onSubmit={handleSubmit}
             >
+                
+                <img src={logo} alt="" className="login__logo" />
                 <label className='login-form__label'>
                     Email:
                 </label>
@@ -57,7 +61,7 @@ const Login = ({ setIsUserLoggedIn }) => {
 
                 {errorLogin && <div className='login-form__message'>{errorLogin}</div>}
 
-                <button className='login-form__button'>Log In</button>
+                <button className='button login-form__button'>Log In</button>
             </form>
             <div className="login__overlay"></div>
         </main>

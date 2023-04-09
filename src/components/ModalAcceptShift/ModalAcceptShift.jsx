@@ -5,9 +5,11 @@ import moment from 'moment'
 import { useEffect } from 'react';
 import axios from "axios";
 
-
 //API_URL
 import { API_URL } from '../../utils/utils';
+
+//icon
+import closeIcon from '../../assets/icons/close_icon.svg'
 
 const ModalAcceptShift = ({ shift, onClose, newEmployeeID, shiftActioned, setShiftActioned }) => {
 
@@ -41,6 +43,9 @@ const ModalAcceptShift = ({ shift, onClose, newEmployeeID, shiftActioned, setShi
     return (
         <div className="modal">
             <article className="modal__container">
+                <div className="modal__icon-container">
+                    <img src={closeIcon} alt="close icon" className="modal__icon" onClick={onClose} />
+                </div>
                 {shiftActioned && (
                     <div className="modal__container--overlay">
                         <h2 className="modal__title">
@@ -49,7 +54,7 @@ const ModalAcceptShift = ({ shift, onClose, newEmployeeID, shiftActioned, setShi
                     </div>
                 )}
                 <div className="modal__text-container">
-                    <h1 className="modal__title">
+                    <h1 className="modal__title modal__title--available">
                         {title}
                     </h1>
 
@@ -61,9 +66,6 @@ const ModalAcceptShift = ({ shift, onClose, newEmployeeID, shiftActioned, setShi
                     </p>
                 </div>
                 <div className="modal__button-container">
-                    <button type="button" className="button button--cancel" onClick={onClose}>
-                        Exit
-                    </button>
                     <button type="button" className="button button--post-shift"
                         onClick={() => { acceptShift() }} >
                         Take Shift

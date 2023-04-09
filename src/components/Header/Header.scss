@@ -1,18 +1,33 @@
+@use "../../styles/partials/colors" as *;
+
+
 .header {
-    background-color: lavender;
+    background-color: $teal;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-inline: 2rem;
+    height: 3rem;
 
-
+&__logo{
+    height: 7rem;
+}
     &__container {
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 1.5rem;
     }
-    &__logout{
-       height: 1.75rem;
+
+    &__logout {
+        height: 1.75rem;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &__person {
+        color: $white;
     }
 }

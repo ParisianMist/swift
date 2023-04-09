@@ -1,3 +1,6 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/mixins/mixins" as *;
+
 .login {
     background-image: url(../../assets/images/hospital-bg.png);
     background-size: cover;
@@ -8,7 +11,9 @@
     align-items: center;
     height: 100vh;
 
+&__logo{
 
+}
 
     &__overlay {
         background-color: #ffffff;
@@ -29,11 +34,27 @@
         display: flex;
         flex-direction: column;
         margin: auto;
-        background-color: white;
+        background-color: $light-teal;
         width: 22rem;
         box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
-        background-color: #fff;
         border-radius: 0.5rem;
         padding: 2rem 1.5rem;
+
+        &__label {
+            padding-top: 1rem;
+        }
+
+        &__input {
+            background-color: $white;
+            border-radius: .25rem;
+            border: 1px solid $white;
+            outline: 0;
+            padding: 0.25rem;
+        }
+
+        &__button {
+            margin-top: 2rem;
+            background-color: $white;
+        }
     }
 }

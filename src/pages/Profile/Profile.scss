@@ -10,9 +10,13 @@
     padding-inline: 1rem;
 
     &__title {
-        @include handleFont(6rem, 2.25rem, 300);
+        @include handleFont(2.5rem, .25rem, 300);
         color: $navy;
-        padding-bottom: 1.5rem;
+        padding-bottom: 2.5rem;
         padding-left: 1rem;
+        padding-top: 1rem;
     }
+}
+.rbc-toolbar-label{
+    @include handleFont(1.5rem,2rem,300);
 }

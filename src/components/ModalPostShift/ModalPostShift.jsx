@@ -2,7 +2,7 @@ import './ModalPostShift.scss';
 
 //tools
 import moment from 'moment'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import axios from "axios";
 
 //API_URL
@@ -12,7 +12,6 @@ import { API_URL } from '../../utils/utils';
 import closeIcon from '../../assets/icons/close_icon.svg'
 
 const Modal = ({ shift, onClose, shiftActioned, setShiftActioned }) => {
-    const [message, setMessage] = useState('')
     const { title, start, end, shiftID, upForGrabs } = shift;
 
     //update upForGrabs status
@@ -22,7 +21,9 @@ const Modal = ({ shift, onClose, shiftActioned, setShiftActioned }) => {
             .then(response => {
                 console.log('shift posted', response);
                 setShiftActioned(true);
-                setTimeout(() => { onClose(); }, 2000);
+                setTimeout(() => { 
+                    onClose(); 
+                }, 2000);
             })
             .catch(err => {
                 console.log(`Unable to post shift : ${err}`)
@@ -34,19 +35,19 @@ const Modal = ({ shift, onClose, shiftActioned, setShiftActioned }) => {
             .then(response => {
                 console.log('shift removed', response);
                 setShiftActioned(true);
-                setMessage('Shift removed');
             })
             .catch(err => {
                 console.log(`Unable to remove shift : ${err}`)
             })
     }
     useEffect(() => {
-        if (message) {
+        if (shiftActioned) {
             setTimeout(() => {
                 onClose();
+                window.location.reload();
             }, 2000);
         }
-    }, [message, onClose, upForGrabs]);
+    }, [shiftActioned, onClose, upForGrabs]);
 
     return (
         <div className="modal">

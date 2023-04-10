@@ -53,6 +53,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
       .then((res) => {
         const data = res.data.map((shift) => ({
           ...shift,
+          title: shift.title + (shift.upForGrabs ? ' *' : ''),
           start: moment(shift.start).toDate(),
           end: moment(shift.end).toDate(),
           type: 'regular'

@@ -16,12 +16,11 @@ const ModalAcceptShift = ({ shift, onClose, newEmployeeID, shiftActioned, setShi
     const { title, start, end, shiftID } = shift;
 
     useEffect(() => {
-        let timer;
-        if (shiftActioned) {
-            timer = setTimeout(() => { onClose(); }, 2000);
-        }
-        return () => {
-            clearTimeout(timer);
+         if (shiftActioned) {
+            setTimeout(() => {
+                onClose();
+                window.location.reload();
+            }, 2000);
         };
     }, [shiftActioned, onClose]);
 

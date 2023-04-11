@@ -9,6 +9,11 @@
     padding-bottom: 1rem;
     padding-inline: 1rem;
 
+    &__top-container {
+        display: flex;
+        justify-content: space-between
+    }
+
     &__title {
         @include handleFont(2.5rem, .25rem, 300);
         color: $navy;
@@ -16,7 +21,37 @@
         padding-left: 1rem;
         padding-top: 1rem;
     }
+
+    &__noti {
+        // background-color: lavender;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 1rem;
+        padding-right: 3.5rem;
+
+        &-title {
+            @include handleFont(1.25rem, 2.25rem, 300);
+            align-self: flex-start;
+            
+        }
+        
+        &-text {
+            @include handleFont(.75rem, 1rem, 300);
+            padding-bottom: .5rem
+        }
+
+        &-list {
+            // background-color: $light-salmon;
+            border: 1px solid $light-salmon;
+            border-radius: 5px;
+            padding: 0.5rem;
+            height: 5rem;
+            // width: 10rem;
+            overflow: scroll;
+        }
+    }
 }
-.rbc-toolbar-label{
-    @include handleFont(1.5rem,2rem,300);
+
+.rbc-toolbar-label {
+    @include handleFont(1.5rem, 2rem, 300);
 }

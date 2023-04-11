@@ -14,21 +14,21 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import ModalPostShift from '../../components/ModalPostShift/ModalPostShift'
 import ModalAcceptShift from '../../components/ModalAcceptShift/ModalAcceptShift';
-
+import Notification from '../../components/Notification/Notification';
 //to render datetime with Calendar
 const localizer = momentLocalizer(moment);
 
 
 const Profile = ({ setIsUserLoggedIn }) => {
 
-  const [shift, setShift] = useState([])
-  const [employeeName, setEmployeeName] = useState()
+  const [shift, setShift] = useState([]);
+  const [employeeName, setEmployeeName] = useState();
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [upForGrabs, setUpForGrabs] = useState([])
-  const [employeeID, setEmployeeID] = useState()
+  const [upForGrabs, setUpForGrabs] = useState([]);
+  const [employeeID, setEmployeeID] = useState();
   const [swapStatus, setSwapStatus] = useState(false);
   const [shiftActioned, setShiftActioned] = useState(false);
-  // const [swapNotification,setSwapNotification]=useState()
+  const [swapNotification, setSwapNotification] = useState([]);
 
   // Check if user is logged in, log out and return to login page if not
   const token = sessionStorage.getItem("token");
@@ -73,14 +73,17 @@ const Profile = ({ setIsUserLoggedIn }) => {
       })
   }, [token, swapStatus, upForGrabs, shiftActioned]);
 
-  // Check if shifts have been taken and remove them from the user's schedule
+  // Check if shift taken, remove them from the user's schedule & notify 
   useEffect(() => {
+    let takenShift = [];
     if (shift.length > 0) {
-      const takenShifts = shift.filter((shift) => shift.swapStatus === true);
-      if (takenShifts.length > 0) {
-        const updatedShifts = shift.filter((shift) => shift.swapStatus === false);
-        setShift(updatedShifts);
-      }
+      const takenShift = shift.filter((shift) => shift.swapStatus === 1);
+      setSwapNotification(takenShift);
+    }
+
+    if (takenShift.length > 0) {
+      const updatedShifts = shift.filter((shift) => shift.swapStatus === 0);
+      setShift(updatedShifts);
     }
   }, [shift, shiftActioned]);
 
@@ -93,6 +96,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
     })
       .then((res) => {
         const data = res.data;
+        console.log(data)
         if (data.length === 0) {
           console.log("No available shifts for swapping");
           return;
@@ -111,15 +115,12 @@ const Profile = ({ setIsUserLoggedIn }) => {
   }, [token, upForGrabs, shiftActioned]);
 
   //add style to different events
-  const eventStyleGetter = (event, start, end, isSelected) => {
+  const eventStyleGetter = (event) => {
     let style = {
       backgroundColor: event.type === 'available' ? '#f2c6b1' : '#d9e3d8',
-      borderRadius: '5px',
       opacity: 0.8,
       color: '#00575d',
-      border: '0px',
-      display: 'block',
-      paddingLeft: '2px'
+      paddingLeft: '.75rem'
     };
 
     return {
@@ -161,9 +162,14 @@ const Profile = ({ setIsUserLoggedIn }) => {
       />
 
       <section className="profile">
-        <h1 className="profile__title">
-          Your Schedule
-        </h1>
+        <div className="profile__top-container">
+          <h1 className="profile__title">
+            Your Schedule
+          </h1>
+          <Notification
+            swapNotification={swapNotification}
+          />
+        </div>
 
         {/* display modal when shift is clicked */}
         {selectedEvent && renderModal(selectedEvent)}

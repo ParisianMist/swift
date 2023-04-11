@@ -1,0 +1,11 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/mixins/mixins" as *;
+
+
+.noti{
+    // padding-bottom: 1rem;
+    &__message{
+        @include handleFont(.75rem,1rem,300);
+        // text-transform:lowercase;
+    }
+}

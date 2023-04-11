@@ -2,7 +2,7 @@ import './Header.scss';
 
 //icon
 import logoutIcon from '../../assets/icons/logout_icon.svg';
-import logo from '../../assets/logo/swift_logo.png'
+import logo from '../../assets/logo/swift_logo-white.png'
 const Header = ({ name, logout }) => {
     return (
         <header className='header'>

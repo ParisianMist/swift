@@ -110,5 +110,7 @@
 
     &:hover {
         cursor: pointer;
+        background-color: $light-salmon;
+        border: 2px solid $salmon;
     }
 }

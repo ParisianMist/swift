@@ -28,10 +28,14 @@
         display: flex;
         flex-direction: column;
         padding-bottom: 1rem;
+        width: 18.125rem;
+
 
         &-title {
             @include handleFont(1.25rem, 2.25rem, 300);
             align-self: flex-start;
+            display: flex;
+            align-items:end;
             
         }
         
@@ -45,7 +49,6 @@
             border-radius: 5px;
             padding: 0.5rem;
             height: 5rem;
-            width: 18.125rem;
             overflow: scroll;
         }
     }

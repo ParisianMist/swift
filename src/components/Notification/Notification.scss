@@ -2,10 +2,13 @@
 @use "../../styles/partials/mixins/mixins" as *;
 
 
-.noti{
-    // padding-bottom: 1rem;
-    &__message{
-        @include handleFont(.75rem,1rem,300);
-        // text-transform:lowercase;
+.noti {
+    &__message {
+        @include handleFont(.75rem, 1rem, 300);
+    }
+
+    &__toggle {
+        background-color: $white;
+        border: none;
     }
 }

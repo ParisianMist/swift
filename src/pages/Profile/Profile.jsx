@@ -179,7 +179,7 @@ const Profile = ({ setIsUserLoggedIn }) => {
           defaultDate={'2023-04-02'}
           defaultView="month"
           events={[...shift.filter(s => !s.swapStatus), ...upForGrabs]}
-          style={{ height: "76.75vh" }}
+          style={{ height: "76vh" }}
           onSelectEvent={(event) => setSelectedEvent(event)}
           eventPropGetter={eventStyleGetter}
         />

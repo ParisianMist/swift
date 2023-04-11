@@ -6,7 +6,8 @@ import { useState } from "react";
 import { API_URL } from '../../utils/utils';
 
 //logo
-import logo from '../../assets/logo/swift_logo.png'
+import logo from '../../assets/logo/swift_logo-white.png'
+
 const Login = ({ setIsUserLoggedIn }) => {
     const [errorLogin, setErrorLogin] = useState();
 

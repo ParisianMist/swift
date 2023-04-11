@@ -28,7 +28,6 @@
         display: flex;
         flex-direction: column;
         padding-bottom: 1rem;
-        padding-right: 3.5rem;
 
         &-title {
             @include handleFont(1.25rem, 2.25rem, 300);
@@ -42,12 +41,11 @@
         }
 
         &-list {
-            // background-color: $light-salmon;
             border: 1px solid $light-salmon;
             border-radius: 5px;
             padding: 0.5rem;
             height: 5rem;
-            // width: 10rem;
+            width: 18.125rem;
             overflow: scroll;
         }
     }

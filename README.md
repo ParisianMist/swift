@@ -8,6 +8,22 @@ Swift is an app designed for nurses to easily trade shifts in real-time. The app
 
 - Aunjrya Fleming [@ParisianMist](https://www.github.com/ParisianMist)
 
+## Screenshots
+Nurse, Molly Weasley, can log in using their compnay email and password:
+![login demo](./src/assets/images/demo/swift-demo-login.png)
+Nurse Molly will then be brought to their personal calendar view:
+![login demo](./src/assets/images/demo/swift-demo-user-view.png)
+Nurse Molly can then post a shift:
+![login demo](./src/assets/images/demo/swift-demo-post-shift.png)
+A modal will let Nurse Molly know the shift has been posted and '*' will appear beside the shift to indicate that it is actively up for grabs. Should Molly choose to take the shift back they can easily click on the shift to unpost it:
+![login demo](./src/assets/images/demo/swift-demo-unpost-shift.png)
+Nurse, Luna Lovegood, can log into their account, view and accept any available shift:
+![login demo](./src/assets/images/demo/swift-demo-accept-shift.png)
+Nurse Molly will no longer see the shift in their schedule and can consult the notification center for confirmation: 
+![login demo](./src/assets/images/demo/swift-demo-notification.png)
+
+All successful switches are logged and the schedule changed immediately. Management and charge Nurses have access to infallible schedules and the log of switches should they want to review. 
+
 
 ## Installation
 

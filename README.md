@@ -4,24 +4,26 @@
 Swift is an app designed for nurses to easily trade shifts in real-time. The app offers automated approvals and a user-friendly interface, streamlining the process and saving time. Swift benefits both nurses and managers by improving productivity and allowing more focus on critical tasks.
 
 
-## Author
+## Preview
 
-- Aunjrya Fleming [@ParisianMist](https://www.github.com/ParisianMist)
-
-## Screenshots
-
-Nurse, Molly Weasley, can log in using their compnay email and password:
 ![login demo](./src/assets/images/demo/swift-demo-login.png)
-Nurse Molly will then be brought to their personal calendar view:
+Figure 1: Nurse, Molly Weasley, can log in using their compnay email and password.
+
 ![user view demo](./src/assets/images/demo/swift-demo-user-view.png)
-Nurse Molly can then post a shift:
+Figure 2: Nurse Molly will then be brought to their personal calendar view.
+
 ![post shift demo](./src/assets/images/demo/swift-demo-post-shift.png)
-A modal will let Nurse Molly know the shift has been posted and '*' will appear beside the shift to indicate that it is actively up for grabs. Should Molly choose to take the shift back they can easily click on the shift to un-post it:
+Figure 3: Nurse Molly can then post a shift.
+
 ![unpost shift demo](./src/assets/images/demo/swift-demo-unpost-shift.png)
-Nurse, Luna Lovegood, can log into their account, view and accept any available shift:
+Figure 4: A modal will let Nurse Molly know the shift has been posted and '*' will appear beside the shift to indicate that it is actively up for grabs. Should Molly choose to take the shift back they can easily click on the shift to un-post it.
+
 ![accept shift demo](./src/assets/images/demo/swift-demo-accept-shift.png)
-Nurse Molly will no longer see the shift in their schedule and can consult the notification center for confirmation: 
+Figure 5: Nurse, Luna Lovegood, can log into their account, view and accept any available shift.
+
 ![notification centre demo](./src/assets/images/demo/swift-demo-notification.png)
+Figure 6: Nurse Molly will no longer see the shift in their schedule and can consult the notification center for confirmation. 
+
 
 All successful switches are logged and the schedule changed immediately. Management and charge Nurses have access to infallible schedules and the log of switches should they want to review. 
 
@@ -121,6 +123,12 @@ and
 email: LunaLovegood@stMungos.wiz
 password: hp123
 ```
+
+## Contact
+
+- Aunjrya Fleming 
+- For any questions or inquiries, please [Email Me](mailto:aunjrya@gmail.com)
+- See what else I am working on, [@ParisianMist](https://www.github.com/ParisianMist)
 
 
 ## Tech Stack

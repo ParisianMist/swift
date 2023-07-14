@@ -21,8 +21,8 @@ const Modal = ({ shift, onClose, shiftActioned, setShiftActioned }) => {
             .then(response => {
                 console.log('shift posted', response);
                 setShiftActioned(true);
-                setTimeout(() => { 
-                    onClose(); 
+                setTimeout(() => {
+                    onClose();
                 }, 2000);
             })
             .catch(err => {
@@ -53,49 +53,44 @@ const Modal = ({ shift, onClose, shiftActioned, setShiftActioned }) => {
         <div className="modal">
             <article className="modal__container">
                 <div className="modal__icon-container">
-                    <img src={closeIcon} alt="close icon" className="modal__icon" onClick={onClose}/>
+                    <img src={closeIcon} alt="close icon" className="modal__icon" onClick={onClose} />
                 </div>
                 {shiftActioned && (
                     <div className="modal__container--overlay">
-                        <h2 className="modal__title">
-                            Success!
-                        </h2>
+                        <h2 className="modal__title">Success!</h2>
                     </div>
                 )}
                 <div className="modal__text-container">
-                    <h1 className="modal__title">
-                        {title}
-                    </h1>
-
-                    {!!upForGrabs &&
+                    <h1 className="modal__title">{title}</h1>
+                    <p className="modal__text">Start: {moment(start).format("MMM DD, YYYY HH:mm")}</p>
+                    <p className="modal__text">End: {moment(end).format("MMM DD, YYYY HH:mm")}</p>
+                    {upForGrabs ? (
                         <div className="modal__message-container">
-                            <p className="modal__message--posted">
-                                Shift Posted
-                            </p>
-                            <button type="button" className="button button--post-shift"
+                            <p className="modal__message--posted">Shift Posted</p>
+                            <button
+                                type="button"
+                                className="button button--post-shift"
                                 onClick={() => {
-                                    removeShift()
-                                }}>
+                                    removeShift();
+                                }}
+                            >
                                 Unpost Shift
                             </button>
                         </div>
-                    }
+                    ) : (
+                        <div className="modal__button-container">
+                            <button
+                                type="button"
+                                className="button button--post-shift"
+                                onClick={() => {
+                                    postShift();
+                                }}
+                            >
+                                Post Shift
+                            </button>
+                        </div>
+                    )}
 
-                    <p className="modal__text">
-                        Start: {moment(start).format('MMM DD, YYYY HH:mm')}
-                    </p>
-                    <p className="modal__text">
-                        End: {moment(end).format('MMM DD, YYYY HH:mm')}
-                    </p>
-                </div>
-                <div className="modal__button-container">
-                    <button type="button" className="button button--post-shift"
-                        onClick={() => {
-                            postShift()
-                        }}
-                    >
-                        Post Shift
-                    </button>
 
                 </div>
             </article>
